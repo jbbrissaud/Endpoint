@@ -2,8 +2,6 @@ package example
 
 import zio.json._
 
-val UrlServer = "http://localhost:8090"  // only for EndpointClient
-
 case class Name(first:String,last:String)
 case class User(name:Name,age:Int)
 

@@ -36,7 +36,7 @@ private def req2optJson(patterns: List[Pattern]
   class treatPatternException extends Exception
 
   def treatPattern(pat:Pattern,path:List[String],result:List[String]): (List[String],List[String]) =
-    println(s"pat=${pat.toString()}")
+    //println(s"pat=${pat.toString()}")
     pat match
       case CteMethod(m) =>
         if m==method.toString() then 
@@ -124,9 +124,6 @@ private def req2optJson(patterns: List[Pattern]
 extension(endpoint:Endpoint[Unit])
   def unapply(req:Request): Option[Unit] =
     val (method,path,params,headers,body) = ZhttpHttp.getReq(req)
-    //println(s"req=$req\npath=${path}\nparams=$params\nheaders=$headers")
-    println(s"path=${path}\nparams=$params\nheaders=$headers")
-
     req2optJson(endpoint.patterns,method,path,params,headers,"body").match
       case None => None
       case Some(json) => Some(())
@@ -134,9 +131,6 @@ extension(endpoint:Endpoint[Unit])
 extension[A :JsonDecoder](endpoint:Endpoint[A])
   def unapply(req:Request): Option[A] =
     val (method,path,params,headers,body) = ZhttpHttp.getReq(req)
-    //println(s"req=$req\npath=${path}\nparams=$params\nheaders=$headers")
-    println(s"path=${path}\nparams=$params\nheaders=$headers")
-
     req2optJson(endpoint.patterns,method,path,params,headers,"body").match
       case None => None
       case Some(json) => json.fromJson[A].toOption

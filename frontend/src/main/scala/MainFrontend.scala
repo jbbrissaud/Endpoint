@@ -10,14 +10,14 @@ import zio.*
 object MainFrontEnd:
   def appComponent = 
     val myDiv =
-      div()
+      div("look at the console (F12) to see the results.")
     myDiv
     
   def main(args: Array[String]): Unit =
     val _ = documentEvents.onDomContentLoaded.foreach { _ =>
       val appContainer = dom.document.querySelector("#app")
       appContainer.innerHTML = ""
-      val _            = render(appContainer, MainFrontEnd.appComponent)
+      val _            = render(appContainer, appComponent)
     }(unsafeWindowOwner)
     example.Test.f
 

@@ -6,6 +6,8 @@ import sttp.model.{Method,Uri}
 
 /////////////////////// lib specific
 
+val UrlServer = "http://localhost:8090"
+
 object SttpClient3:
   def setReq(method:String,path:List[String],params:Map[String, List[String]]
     ,headers:Map[String, List[String]],body:String) =

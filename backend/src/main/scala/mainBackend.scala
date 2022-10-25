@@ -12,7 +12,7 @@ import zhttp.http.middleware.Cors.CorsConfig
 object WebServer extends ZIOAppDefault:
 
   def getFile(filename:String) =
-    println(s"filename=$filename")
+    //println(s"filename=$filename")
     val file = new File(filename)
     Http.fromFile(file).orDie
   
@@ -29,22 +29,6 @@ object WebServer extends ZIOAppDefault:
         getFile("frontend/target/esbuild/bundle.js.map")
       case Method.GET -> !! / "static" / name =>
         getFile(s"frontend/static/$name")
-    }
-
-  /////////////////////////////////////
-
-  given JsonDecoder[Name] = DeriveJsonDecoder.gen[Name]
-  given JsonDecoder[User] = DeriveJsonDecoder.gen[User]
-
-  private val appTest: Http[Any, Nothing, Request, Response] =
-    Http.collect[Request] {
-      case userEndpoint4(user,age,name,poids)  => 
-        Response.text(s"${(user,age,name,poids)}")
-      case userEndpoint3(user1,user2,user3) => 
-        Response.text(s"user1=$user1  user2=$user2  user3=$user3")
-      case userEndpoint2(d,n) => Response.text(s"d=$d  n=$n")
-      case userEndpoint1(n) => Response.text(s"n=$n")
-      case userEndpoint0(_) => Response.text(s"rien=0")  // unreachable
     }
 
   /////////////////////////////////////
