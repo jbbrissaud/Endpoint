@@ -40,7 +40,7 @@ myRequest match
 ```
 The endpoint is shared by the js client and the JVM server, and can use any type in its description (not only String and Int). You just need to provide for the new types a zio-json JsonEncoder if you use the js client,  and a zio-json JsonDecoder if you use the JVM server.
 
-The order of the patterns between the "/" determines the order of parameters. You don't have to start with the path and, for convenience, "?[A](name)" describes a path "/<name>/<json encoding of a A>". For instance:
+The order of the patterns between the "/" determines the order of parameters. You don't have to start with the path and, for convenience, ?\[A\](name) describes a path starting with name followed by an A. For instance:
 ```scala
 GET / ??[Int]("age") / ?[String]("userid") / ?[String]("nickname")
 ```
@@ -48,11 +48,14 @@ is an Endpoint\[(Int,String,String)\] which matches a request with path /userid/
 
 ## caveats
 The type of Request to match or generate depends on the framework used.
-Currently, only the zhttp.HTTP.Request is matched on the server, and only the sttp.client3.Request is generated on the client. However, the code to modify this is only getReq and setReq, given the following notion of request:
-a method: String , like "GET" or "POST"
-a path: List[String] (without the parameters)
-the parameters: Map[String,List[String]]
-the headers: Map[String,List[String]]
+
+Currently, only the zhttp.HTTP.Request is matched on the server, and only the sttp.client3.Request is generated on the client.
+
+However, the code to modify this is only getReq and setReq, given the following notion of request:\\
+a method: String , like "GET" or "POST"\\
+a path: List[String] (without the parameters)\\
+the parameters: Map[String,List[String]]\\
+the headers: Map[String,List[String]]\\
 a body: String
 
 
