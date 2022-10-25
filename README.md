@@ -51,12 +51,12 @@ The type of Request to match or generate depends on the framework used.
 
 Currently, only the zhttp.HTTP.Request is matched on the server, and only the sttp.client3.Request is generated on the client.
 
-However, the code to modify this is only getReq and setReq, given the following notion of request:\\
-a method: String , like "GET" or "POST"\\
-a path: List[String] (without the parameters)\\
-the parameters: Map[String,List[String]]\\
-the headers: Map[String,List[String]]\\
-a body: String
+However, the code to modify this is only getReq and setReq, given the following notion of request:
+* a method: String , like "GET" or "POST"
+* a path: List[String] (without the parameters)
+* the parameters: Map[String,List[String]]
+* the headers: Map[String,List[String]]
+* a body: String
 
 
 
